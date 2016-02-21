@@ -1,0 +1,22 @@
+<template name="home">
+	{{#if hasTimeline}}
+  	<div class="row">
+	  	{{#each timeline}}
+			  <div class="item">
+			    <div class="thumbnail">
+			    	{{#if photos this._id}}
+			    		{{#each photos this._id}}
+			      		<img src="/cfs/files/images/{{this.photoId}}" alt="...">
+			    		{{/each}}
+			      {{/if}}
+			      <div class="caption">
+			        <p>{{this.text}}</p>
+			      </div>
+			    </div>
+			  </div>
+		  {{/each}}
+		</div>
+	{{else}}
+		<div class="well well-lg">Maaf belum ada data</div>
+	{{/if}}
+</template>

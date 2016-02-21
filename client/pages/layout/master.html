@@ -1,0 +1,78 @@
+<template name="master">
+  <nav class="navbar navbar-default">
+	  <div class="container-fluid">
+	    <!-- Brand and toggle get grouped for better mobile display -->
+	    <div class="navbar-header">
+	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	      </button>
+	      <a class="navbar-brand" href="#">Diabook</a>
+	    </div>
+
+	    <!-- Collect the nav links, forms, and other content for toggling -->
+	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	      <ul class="nav navbar-nav">
+	        <li class="active"><a href="/">Home <span class="sr-only">(current)</span></a></li>
+	        {{#if currentUser}}
+	        	<li><a href="#" data-toggle="modal" data-target="#myModal">Post</a></li>
+	        {{else}}
+	        	<li><a href="/signin">Login</a></li>
+					{{/if}}
+	      </ul>
+	      {{#if currentUser}}
+		      <ul class="nav navbar-nav navbar-right">
+		        <li><a href="#">{{email}}</a></li>
+		        <li><a href="#" class="logout">Logout</a></li>
+		      </ul>
+	      {{/if}}
+	    </div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+	<div class="container">
+    {{>Template.dynamic template=content}}
+  </div>
+  <!-- Modal -->
+  {{#if currentUser}}
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">Create new post</h4>
+		      </div>
+	        <form>
+			      <div class="modal-body">
+						  <div class="form-group">
+						    <label for="textPost">What's on your mind?</label>
+						    <textarea id="textPost" class="form-control" rows="3"></textarea>
+						  </div>
+						  <div class="form-group">
+						  	{{#if photo}}
+							    <img src="{{photo}}" class="img-responsive remove" data-toggle="tooltip" data-placement="top" title="Klik to remove image">
+							  {{else}}
+							  	<label for="filePost">File input</label>
+							    <input type="file" id="filePost">
+							  {{/if}}
+						  </div>
+						  {{#if alert}}
+						  	<div class="alert alert-danger" role="alert">{{alert}}</div>
+						  {{/if}}
+						  <div class="checkbox">
+						    <label>
+						      <input type="checkbox" id="isPrivate"> Private
+						    </label>
+						  </div>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			        <button id="postButton" type="button" class="btn btn-primary">Post button</button>
+			      </div>
+		      </form>
+		    </div>
+		  </div>
+		</div>
+	{{/if}}
+</template>
